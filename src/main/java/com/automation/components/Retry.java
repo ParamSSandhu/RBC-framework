@@ -1,7 +1,6 @@
-package com.automationbytarun.components;
+package com.automation.components;
 
 import org.testng.IRetryAnalyzer;
-import org.testng.ITest;
 import org.testng.ITestResult;
 
 public class Retry implements IRetryAnalyzer {

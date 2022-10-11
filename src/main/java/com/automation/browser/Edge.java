@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class Edge extends Browser{
+public class Edge extends Browser {
 
     EdgeOptions edgeOptions;
 
@@ -20,11 +20,13 @@ public class Edge extends Browser{
         edgeOptions = new EdgeOptions();
 
         Map<String, Object> prefs = new HashMap<String, Object>();
-        prefs.put("Credentials_enable_services", false);
-        prefs.put("profile.password_manager_enable", false);
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
         prefs.put("useAutomationExtension", false);
-        prefs.put("excludeSwitch", Collections.singletonList("enable-automation"));
+        prefs.put("excludeSwitches",
+                Collections.singletonList("enable-automation"));
         edgeOptions.setCapability("prefs", prefs);
+
     }
 
     @Override
@@ -42,7 +44,7 @@ public class Edge extends Browser{
             if (isMaximized()) {
                 driver.manage().window().maximize();
             }
-            driver.manage().timeouts().pageLoadTimeout(getPageLoadTimeout(), TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(getPageLoadTimeOut(), TimeUnit.SECONDS);
             if (isDeleteCookies()) {
                 driver.manage().deleteAllCookies();
             }

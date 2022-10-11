@@ -1,9 +1,7 @@
 package com.automation.components;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
@@ -11,19 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseActions {
-
     WebDriver driver;
 
     public BaseActions(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void clickIt(String element) {
+    public void clickIt(String elementRef) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
-            WebElement elementBy = findObj.findElementBy(element);
+            WebElement elementBy = findObj.findElementBy(elementRef);
             elementBy.click();
+            ExtentTestManager.getTest().log(LogStatus.PASS, "Clicked Successfully on " + elementRef);
         } catch (Exception e) {
+            ExtentTestManager.getTest().log(LogStatus.FAIL, "Unable to click on " + elementRef);
         }
     }
 
@@ -34,7 +33,9 @@ public class BaseActions {
             elementBy.click();
             elementBy.clear();
             elementBy.sendKeys(text);
+            ExtentTestManager.getTest().log(LogStatus.PASS, "Typed value [" + text + "] into element [" + elementRef + "]");
         } catch (Exception e) {
+            ExtentTestManager.getTest().log(LogStatus.FAIL, "Failed to Type value [" + text + "] into element [" + elementRef + "]");
         }
     }
 
@@ -42,13 +43,31 @@ public class BaseActions {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
             WebElement elementBy = findObj.findElementBy(elementRef);
+            ExtentTestManager.getTest().log(LogStatus.PASS, "Text fetched from Element [" + elementRef + "]");
             return elementBy.getText();
         } catch (Exception e) {
+            ExtentTestManager.getTest().log(LogStatus.FAIL, "Unable to fetch Text from Element [" + elementRef + "]");
             return null;
         }
     }
 
-    public String getAttributeFromElement(String elementRef, String attributeType) {
+    public static String captureSnapshot(String testName, WebDriver driver) throws Exception {
+        try {
+            ThreadLocal<String> base64 = new ThreadLocal<String>();
+            TakesScreenshot screenshot = (TakesScreenshot) driver;
+            String snapshotFile = "data:image/png;base64,"
+                    + screenshot.getScreenshotAs(OutputType.BASE64);
+            base64.set(snapshotFile);
+            return base64.get();
+        } catch (Exception e) {
+            ExtentTestManager.getTest().log(LogStatus.FAIL, "Unable to capture screenshot</b></p>");
+
+        }
+        return null;
+    }
+
+
+    public String getAttributeForElement(String elementRef, String attributeType) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
             WebElement elementBy = findObj.findElementBy(elementRef);
@@ -57,6 +76,7 @@ public class BaseActions {
             return null;
         }
     }
+
 
     public void selectValueFromDropdown(String elementRef, String selectBy, String option) {
         try {
@@ -88,6 +108,7 @@ public class BaseActions {
             List<String> windows = new ArrayList<>(driver.getWindowHandles());
             driver.switchTo().window(windows.get(windows.size() - 1));
         } catch (Exception e) {
+
         }
     }
 
@@ -97,6 +118,7 @@ public class BaseActions {
             WebElement elementBy = findObj.findElementBy(elementRef);
             elementBy.sendKeys(Keys.ENTER);
         } catch (Exception e) {
+
         }
     }
 
@@ -106,6 +128,7 @@ public class BaseActions {
             WebElement elementBy = findObj.findElementBy(elementRef);
             elementBy.sendKeys(Keys.TAB);
         } catch (Exception e) {
+
         }
     }
 
@@ -113,6 +136,7 @@ public class BaseActions {
         try {
             driver.get(url);
         } catch (Exception e) {
+
         }
     }
 
@@ -124,10 +148,12 @@ public class BaseActions {
         }
     }
 
+
     public void switchToAlertAndAccept() {
         try {
             driver.switchTo().alert().accept();
         } catch (Exception e) {
+
         }
     }
 
@@ -135,6 +161,7 @@ public class BaseActions {
         try {
             driver.switchTo().alert().dismiss();
         } catch (Exception e) {
+
         }
     }
 
@@ -144,6 +171,7 @@ public class BaseActions {
             WebElement elementBy = findObj.findElementBy(elementRef);
             driver.switchTo().frame(elementBy);
         } catch (Exception e) {
+
         }
     }
 
@@ -151,22 +179,26 @@ public class BaseActions {
         try {
             driver.switchTo().defaultContent();
         } catch (Exception e) {
+
         }
     }
 
-    public void scrollToElement(String element) {
+    public void scrollToElement(WebElement element) {
         try {
             JavascriptExecutor jse = (JavascriptExecutor) driver;
             jse.executeScript("arguments[0].scrollIntoView(true);", element);
         } catch (Exception e) {
+
         }
     }
+
 
     public void scrollToTop() {
         try {
             JavascriptExecutor jse = (JavascriptExecutor) driver;
-            jse.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+            jse.executeScript("window.scrollTo(0, -document.body.scrollHeight)");
         } catch (Exception e) {
+
         }
     }
 
@@ -175,6 +207,7 @@ public class BaseActions {
             JavascriptExecutor jse = (JavascriptExecutor) driver;
             jse.executeScript("window.scrollTo(0,document.body.scrollHeight)");
         } catch (Exception e) {
+
         }
     }
 
@@ -188,13 +221,14 @@ public class BaseActions {
         }
     }
 
-    public void dragANDDrop(String elementRef1, String elementRef2) {
+    public void dragAndDrop(String elementRef1, String elementRef2) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
             WebElement elementBy1 = findObj.findElementBy(elementRef1);
             WebElement elementBy2 = findObj.findElementBy(elementRef2);
             new Actions(driver).dragAndDrop(elementBy1, elementBy2).build().perform();
         } catch (Exception e) {
+
         }
     }
 
@@ -202,9 +236,19 @@ public class BaseActions {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
             WebElement elementBy = findObj.findElementBy(elementRef);
-            new Actions(driver).doubleClick(elementBy).build().perform();
-
+            new Actions(driver).contextClick(elementBy).build().perform();
         } catch (Exception e) {
+
+        }
+    }
+
+    public void doubleClickOnElement(String elementRef) {
+        try {
+            ElementFindBy findObj = new ElementFindBy(driver);
+            WebElement elementBy = findObj.findElementBy(elementRef);
+            new Actions(driver).doubleClick(elementBy).build().perform();
+        } catch (Exception e) {
+
         }
     }
 
@@ -227,5 +271,6 @@ public class BaseActions {
             return false;
         }
     }
+
 
 }

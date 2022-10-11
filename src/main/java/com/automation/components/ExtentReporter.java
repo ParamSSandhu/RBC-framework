@@ -1,9 +1,9 @@
-package com.automationbytarun.components;
+package com.automation.components;
 
-import com.automationbytarun.helpers.StringUtils;
-import com.automationbytarun.properties.PropertiesLoader;
-
+import com.automation.helpers.StringUtils;
+import com.automation.properties.PropertiesLoader;
 import com.relevantcodes.extentreports.ExtentReports;
+
 
 import java.io.File;
 

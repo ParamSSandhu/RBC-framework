@@ -1,14 +1,15 @@
-package com.automationbytarun.components;
+package com.automation.components;
 
-import com.automationbytarun.properties.PropertiesLoader;
+import com.automation.properties.PropertiesLoader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.internal.runners.TestMethod;
 import org.testng.annotations.DataProvider;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;

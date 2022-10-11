@@ -19,6 +19,7 @@ public class Chrome extends Browser {
     @Override
     public void setPreferences() {
         chromeOptions = new ChromeOptions();
+
         if (isHeadless()) {
             chromeOptions.setHeadless(true);
         }
@@ -27,11 +28,13 @@ public class Chrome extends Browser {
             chromeOptions.addArguments("start-maximized");
         }
         Map<String, Object> prefs = new HashMap<String, Object>();
-        prefs.put("Credentials_enable_services", false);
-        prefs.put("profile.password_manager_enable", false);
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
         prefs.put("useAutomationExtension", false);
-        prefs.put("excludeSwitch", Collections.singletonList("enable-automation"));
+        prefs.put("excludeSwitches",
+                Collections.singletonList("enable-automation"));
         chromeOptions.setExperimentalOption("prefs", prefs);
+
     }
 
     @Override
@@ -46,12 +49,11 @@ public class Chrome extends Browser {
             }
         } else {
             driver = new ChromeDriver(chromeOptions);
-            driver.manage().timeouts().pageLoadTimeout(getPageLoadTimeout(), TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(getPageLoadTimeOut(), TimeUnit.SECONDS);
             if (isDeleteCookies()) {
                 driver.manage().deleteAllCookies();
             }
         }
         return driver;
     }
-
 }

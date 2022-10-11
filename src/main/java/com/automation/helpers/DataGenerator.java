@@ -1,4 +1,4 @@
-package com.automationbytarun.helpers;
+package com.automation.helpers;
 
 import com.github.javafaker.Faker;
 

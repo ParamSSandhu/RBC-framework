@@ -1,4 +1,4 @@
-package com.automationbytarun.components;
+package com.automation.components;
 
 import org.testng.IAnnotationTransformer;
 import org.testng.annotations.ITestAnnotation;

@@ -1,4 +1,4 @@
-package com.automationbytarun.components;
+package com.automation.components;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

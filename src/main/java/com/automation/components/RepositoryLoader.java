@@ -1,7 +1,5 @@
 package com.automation.components;
 
-import org.testng.annotations.Test;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,7 +23,7 @@ public class RepositoryLoader {
     public static void main(String[] args) throws IOException {
         RepositoryLoader loader = new RepositoryLoader();
         loader.loadProperties();
-
+        System.out.println(loader.getProperty("LoginPage.tbx_Username"));
     }
 
 }

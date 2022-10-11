@@ -1,8 +1,7 @@
-package com.automationbytarun.components;
+package com.automation.components;
 
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
-
 import java.util.HashMap;
 import java.util.Map;
 
