@@ -29,6 +29,4 @@ public class ExtentReporter {
         }
         return suiteReport;
     }
-
-
 }

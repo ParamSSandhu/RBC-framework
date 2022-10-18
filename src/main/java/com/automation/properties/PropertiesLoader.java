@@ -53,6 +53,6 @@ public class PropertiesLoader {
         remoteRun = Boolean.parseBoolean(configsProperties.getProperty("remoteRun"));
         URL = configsProperties.getProperty("URL");
         if (environment.isEmpty())
-            environment = "stg";
+           environment = "stg";
     }
 }

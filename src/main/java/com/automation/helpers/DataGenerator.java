@@ -5,7 +5,7 @@ import com.github.javafaker.Faker;
 public class DataGenerator {
 
 
-    public static String getUsername() {
+    public static String getUsername() {        //library to generate fake data
         return Faker.instance().name().firstName() + "_" + Faker.instance().name().lastName();
     }
 

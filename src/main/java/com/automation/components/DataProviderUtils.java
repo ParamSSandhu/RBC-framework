@@ -18,7 +18,7 @@ import java.util.List;
 public class DataProviderUtils {
 
     @DataProvider(name = "jsonDataProvider")
-    public static Object[][] getJsonTestData(Method method) throws IOException, ParseException {
+    public static Object[][] getJsonTestData(Method method) throws IOException, ParseException {        //returning 2D array
         String testCaseName = method.getName();
         DataProviderArgs args = method.getAnnotation(DataProviderArgs.class);
         String testCaseArguments = args.value();
@@ -32,7 +32,7 @@ public class DataProviderUtils {
         Object obj = parser.parse(fis);
         JSONObject testCase = (JSONObject) obj;
         JSONArray testArray = (JSONArray) testCase.get(testDataName);
-        List<List<String>> listOfList = new ArrayList<>();
+        List<List<String>> listOfList = new ArrayList<>();      //creating 2D array wih rows and columns
         for (int i = 0; i < testArray.size(); i++) {
             List<String> valueFromFields = new ArrayList<String>();
             JSONObject subset = (JSONObject) testArray.get(i);//located subSystem.out.println(subset);
@@ -55,5 +55,4 @@ public class DataProviderUtils {
         }
         return TwoDArray;
     }
-
 }

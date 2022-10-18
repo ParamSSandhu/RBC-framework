@@ -20,28 +20,32 @@ public class ElementFindBy {
     }
 
     public By findBy(String element) throws IOException, Exception {
-        By by;
-        RepositoryLoader loader = new RepositoryLoader();
-        loader.loadProperties();
-        String elementValue = loader.getProperty(element);
-        String findBy = elementValue.split(":")[0];
-        String findByValue = elementValue.split(":")[1];
-        if (findBy.equalsIgnoreCase("xpath")) {
-            by = By.xpath(findByValue);
-        } else if (findBy.equalsIgnoreCase("id")) {
-            by = By.id(findByValue);
-        } else if (findBy.equalsIgnoreCase("name")) {
-            by = By.name(findByValue);
-        } else if (findBy.equalsIgnoreCase("class")) {
-            by = By.className(findByValue);
-        } else if (findBy.equalsIgnoreCase("css")) {
-            by = By.cssSelector(findByValue);
-        } else if (findBy.equalsIgnoreCase("linkText")) {
-            by = By.linkText(findByValue);
-        } else if (findBy.equalsIgnoreCase("partialLinkTest")){
-        by = By.partialLinkText(findByValue);
-        }else{
-            throw new Exception("Invalid Locator Type/Value in ["+ element +"]. Pls check value in OR file");
+        By by = null;
+        try {
+            RepositoryLoader loader = new RepositoryLoader();
+            loader.loadProperties();
+            String elementValue = loader.getProperty(element);
+            String findBy = elementValue.split(":")[0];
+            String findByValue = elementValue.split(":")[1];
+            if (findBy.equalsIgnoreCase("xpath")) {
+                by = By.xpath(findByValue);
+            } else if (findBy.equalsIgnoreCase("id")) {
+                by = By.id(findByValue);
+            } else if (findBy.equalsIgnoreCase("name")) {
+                by = By.name(findByValue);
+            } else if (findBy.equalsIgnoreCase("class")) {
+                by = By.className(findByValue);
+            } else if (findBy.equalsIgnoreCase("css")) {
+                by = By.cssSelector(findByValue);
+            } else if (findBy.equalsIgnoreCase("linkText")) {
+                by = By.linkText(findByValue);
+            } else if (findBy.equalsIgnoreCase("partialLinkTest")){
+            by = By.partialLinkText(findByValue);
+            }else{
+                throw new Exception("Invalid Locator Type/Value in ["+ element +"]. Pls check value in OR file");
+            }
+        } catch (Exception e) {
+
         }
         return by;
     }

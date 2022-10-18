@@ -20,10 +20,4 @@ public class RepositoryLoader {
 
         return properties.getProperty(name);
     }
-    public static void main(String[] args) throws IOException {
-        RepositoryLoader loader = new RepositoryLoader();
-        loader.loadProperties();
-        System.out.println(loader.getProperty("LoginPage.tbx_Username"));
-    }
-
 }

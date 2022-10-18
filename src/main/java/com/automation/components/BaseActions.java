@@ -51,6 +51,16 @@ public class BaseActions {
         }
     }
 
+    public String getCurrentUrl(){
+        String url = "";
+        try{
+            url = driver.getCurrentUrl();
+        }catch (Exception e){
+
+        }
+        return url;
+    }
+
     public static String captureSnapshot(String testName, WebDriver driver) throws Exception {
         try {
             ThreadLocal<String> base64 = new ThreadLocal<String>();
