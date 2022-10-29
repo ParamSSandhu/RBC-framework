@@ -51,27 +51,55 @@ public class ElementFindBy {
     }
 
     public WebElement findElementBy(String element) throws Exception {
-        By by = findBy(element);
-        return waitUntilElementVisible(by);
+        try {
+            By by = findBy(element);
+            return waitUntilElementVisible(by);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public List<WebElement> findAllElementsBy (String element) throws Exception {
-        By by = findBy(element);
-        return waitUntilAllElementsVisible(by);
+        try {
+            By by = findBy(element);
+            return waitUntilAllElementsVisible(by);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public WebElement waitUntilElementVisible(By by) throws Exception{
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        //return driver.findElement(by);    //same thing without the ExplicitWait
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+            //return driver.findElement(by);    //same thing without the ExplicitWait
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public List<WebElement> waitUntilAllElementsVisible(By by) throws Exception{
-        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        try {
+            return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public boolean waitUntilElementDisappears(By by) throws Exception{
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+        try {
+            return wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public WebElement waitUntilElementFound(By by) throws Exception{
-        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        try {
+            return wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public WebElement waitUntilClickable (By by) throws Exception{
-        return wait.until(ExpectedConditions.elementToBeClickable(by));
+        try {
+            return wait.until(ExpectedConditions.elementToBeClickable(by));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

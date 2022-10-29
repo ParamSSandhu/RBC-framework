@@ -17,6 +17,7 @@ public class DriverManager {
     }
 
     public void loadDriver() {
+
         Browser browser = null;
         String path = "";
         if (PropertiesLoader.runOnBrowser.equalsIgnoreCase("Chrome")) {

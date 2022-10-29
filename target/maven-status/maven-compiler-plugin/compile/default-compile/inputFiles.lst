@@ -1,4 +1,9 @@
+F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\Retry.java
+F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\DataProviderUtils.java
+F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\RetryTransformer.java
 F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\browser\Edge.java
+F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\ExtentReporter.java
+F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\DataProviderArgs.java
 F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\properties\PropertiesValidator.java
 F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\RepositoryLoader.java
 F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\browser\DriverManager.java
@@ -10,4 +15,6 @@ F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibra
 F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\properties\PropertiesLoader.java
 F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\BaseActions.java
 F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\ElementFindBy.java
+F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\helpers\DataGenerator.java
+F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\components\ExtentTestManager.java
 F:\Dropbox\QA\Maven\Practicles\SeleniumAutomationLibrary\SeleniumAutomationLibrary\src\main\java\com\automation\helpers\StringUtils.java

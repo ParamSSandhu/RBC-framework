@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.relevantcodes.extentreports.LogStatus;
 
 public class BaseActions {
     WebDriver driver;
@@ -14,7 +15,6 @@ public class BaseActions {
     public BaseActions(WebDriver driver) {
         this.driver = driver;
     }
-
     public void clickIt(String elementRef) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
@@ -25,7 +25,6 @@ public class BaseActions {
             ExtentTestManager.getTest().log(LogStatus.FAIL, "Unable to click on " + elementRef);
         }
     }
-
     public void typeInto(String elementRef, String text) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
@@ -56,9 +55,17 @@ public class BaseActions {
         try{
             url = driver.getCurrentUrl();
         }catch (Exception e){
-
         }
         return url;
+    }
+
+    public String getTitleOfPage(){
+        String title = "";
+        try{
+            title = driver.getTitle();
+        }catch (Exception e){
+        }
+        return title;
     }
 
     public static String captureSnapshot(String testName, WebDriver driver) throws Exception {
@@ -71,12 +78,9 @@ public class BaseActions {
             return base64.get();
         } catch (Exception e) {
             ExtentTestManager.getTest().log(LogStatus.FAIL, "Unable to capture screenshot</b></p>");
-
         }
         return null;
     }
-
-
     public String getAttributeForElement(String elementRef, String attributeType) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
@@ -86,8 +90,6 @@ public class BaseActions {
             return null;
         }
     }
-
-
     public void selectValueFromDropdown(String elementRef, String selectBy, String option) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
@@ -118,7 +120,6 @@ public class BaseActions {
             List<String> windows = new ArrayList<>(driver.getWindowHandles());
             driver.switchTo().window(windows.get(windows.size() - 1));
         } catch (Exception e) {
-
         }
     }
 
@@ -128,7 +129,6 @@ public class BaseActions {
             WebElement elementBy = findObj.findElementBy(elementRef);
             elementBy.sendKeys(Keys.ENTER);
         } catch (Exception e) {
-
         }
     }
 

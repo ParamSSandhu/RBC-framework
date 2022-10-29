@@ -5,54 +5,52 @@ import com.automation.properties.PropertiesLoader;
 import com.automation.properties.PropertiesValidator;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.ITestContext;
+import org.testng.ITestListener;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
+import org.testng.internal.IResultListener;
 
-import javax.naming.ConfigurationException;
-import java.io.IOException;
-import java.sql.Driver;
+import java.lang.reflect.Method;
 
-public class TestActions {
+
+public class TestActions implements ITestListener {
     public ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     // public WebDriver driver;
     public DriverManager driverManager;
-
     public BaseActions pageActions;
-
     @BeforeSuite
     public void setUpConfigurations() throws Exception {
+        ExtentReporter.getReporter();
         PropertiesLoader.environment = System.getProperty("envName");
         PropertiesLoader.initializeProperties();
         PropertiesValidator.validateConfigurations();
         driverManager = new DriverManager();
     }
-
     @BeforeMethod
-    public void setupBrowser() throws InterruptedException {
+    public void setupBrowser(Method methodName) throws InterruptedException {
+        ExtentTestManager.startTest(methodName.getName(),"");
         driverManager.loadDriver();
         //driver = driverManager.getDriver();
         driver.set(driverManager.getDriver());
         pageActions = new BaseActions(driver.get());
         pageActions.launchUrl(PropertiesLoader.URL);
     }
-
     @AfterMethod
     public void testDownBrowser() {
         driverManager.closeBrowser();
+        ExtentTestManager.stopTest();
     }
 
     @AfterSuite
     public void teardownObjects() {
         PropertiesLoader.configsProperties = null;
-    }
+        ExtentReporter.getReporter().flush();
+        ExtentReporter.getReporter().close();
+        }
 
     private static String getTestMethodName(ITestResult iTestResult) {
-        return iTestResult.getMethod().getConstructorOrMethod().getName(); // ();
+        return iTestResult.getMethod().getConstructorOrMethod().getName();
     }
 
     public void onTestStart(ITestResult result) {
@@ -68,10 +66,8 @@ public class TestActions {
                     ExtentTestManager.getTest().addBase64ScreenShot(base64));
             ExtentTestManager.getTest().log(LogStatus.PASS, "Test Passed");
         } catch (Exception e) {
-
         }
     }
-
     public void onTestFailure(ITestResult result) {
         try {
             String base64 = BaseActions.captureSnapshot(getTestMethodName(result),
@@ -80,10 +76,8 @@ public class TestActions {
             ExtentTestManager.getTest().log(LogStatus.FAIL,
                     ExtentTestManager.getTest().addBase64ScreenShot(base64));
         } catch (Exception e) {
-
         }
     }
-
     public void onTestSkipped(ITestResult result) {
         ExtentTestManager.getTest().log(LogStatus.SKIP, "Test SKIPPED");
     }

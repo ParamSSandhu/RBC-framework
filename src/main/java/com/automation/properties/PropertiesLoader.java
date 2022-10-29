@@ -31,7 +31,7 @@ public class PropertiesLoader {
     public static void initializeProperties() throws Exception {
         if (configsProperties == null) {
             configsProperties = new Properties();
-            FileInputStream fileInputStream = new FileInputStream(System.getProperty("user.dir") + "//src//test//resources//configs.properties");
+            FileInputStream fileInputStream = new FileInputStream(System.getProperty("user.dir") + "//src//test//resources//config-"+PropertiesLoader.environment+".properties");
             //user.dir finds the path of the directory.
             System.out.println("Environment Initialized: " + environment);
             configsProperties.load(fileInputStream);
