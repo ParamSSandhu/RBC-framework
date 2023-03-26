@@ -4,13 +4,19 @@ import com.github.javafaker.Faker;
 
 public class DataGenerator {
 
+    public static String getFirstName() {        //library to generate fake data
+        String firstName = Faker.instance().name().firstName();
+        return firstName;
+    }
 
-    public static String getUsername() {        //library to generate fake data
-        return Faker.instance().name().firstName() + "_" + Faker.instance().name().lastName();
+    public static String getLastName() {
+        String firstName = Faker.instance().name().lastName();
+        return firstName;
     }
 
     public static String getPassword() {
-        return Faker.instance().internet().password();
+        String password = Faker.instance().internet().password();
+        return password;
     }
 
     public static String getEmailAddress() {
@@ -18,12 +24,22 @@ public class DataGenerator {
     }
 
     public static String getFullName() {
-        return Faker.instance().name().fullName();
+        String fullName = Faker.instance().name().fullName();
+        return fullName;
     }
 
     public static String getPhoneNumber() {
-        return Faker.instance().phoneNumber().cellPhone();
+        String phoneNumber = Faker.instance().phoneNumber().cellPhone();
+        return phoneNumber;
     }
-
+    public static String generateRandomData(String value) {
+        if (value.equalsIgnoreCase("${randomFirstName}")) {
+            value = value.replace("${randomFirstName}", getFirstName());
+        }
+        if (value.equalsIgnoreCase("${randomLastName}")) {
+            value = value.replace("${randomLastName}", getLastName());
+        }
+        return value;
+    }
 }
 

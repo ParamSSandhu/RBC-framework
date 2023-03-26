@@ -28,6 +28,13 @@ public class PropertiesLoader {
     public static String URL;
     public static String environment;
 
+    public static boolean isRemote(){
+        return  remoteRun;
+    }
+    public static boolean isTakeScreenshotEnabled(){
+            return takeScreenshot;
+    }
+
     public static void initializeProperties() throws Exception {
         if (configsProperties == null) {
             configsProperties = new Properties();
@@ -38,7 +45,7 @@ public class PropertiesLoader {
         }
 
         runOnBrowser = configsProperties.getProperty("RunOnBrowser");
-        takeScreenshot = Boolean.valueOf(configsProperties.getProperty("TakeScreenshot"));
+        takeScreenshot = Boolean.parseBoolean(configsProperties.getProperty("takeScreenshot"));
         chromeDriverPath = configsProperties.getProperty("ChromeDriverPath");
         ieDriverPath = configsProperties.getProperty("IEDriverPath");
         edgeDriverPath = configsProperties.getProperty("EdgeDriverPath");

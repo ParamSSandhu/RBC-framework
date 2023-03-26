@@ -1,5 +1,7 @@
 package com.automation.components;
 
+import com.automation.properties.PropertiesLoader;
+import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -15,6 +17,14 @@ public class BaseActions {
     public BaseActions(WebDriver driver) {
         this.driver = driver;
     }
+    public void launchUrl(String url) {
+        try {
+            driver.get(url);
+        } catch (Exception e) {
+
+        }
+    }
+
     public void clickIt(String elementRef) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
@@ -49,6 +59,18 @@ public class BaseActions {
             return null;
         }
     }
+    public boolean isDisplayed(String elementRef) {
+        try {
+            ElementFindBy findObj = new ElementFindBy(driver);
+            WebElement elementBy = findObj.findElementBy(elementRef);
+           ExtentTestManager.getTest().log(LogStatus.PASS,"Element ["+elementRef+"] displayed successfully");
+            return elementBy.isDisplayed();
+
+        } catch (Exception e) {
+            ExtentTestManager.getTest().log(LogStatus.PASS,"Element ["+elementRef+"] displayed not displayed");
+            return false;
+        }
+    }
 
     public String getCurrentUrl(){
         String url = "";
@@ -68,19 +90,37 @@ public class BaseActions {
         return title;
     }
 
-    public static String captureSnapshot(String testName, WebDriver driver) throws Exception {
+    public static String captureSnapshot(WebDriver driver) throws Exception {
         try {
+            String snapshotFile = "";
+            if(!PropertiesLoader.isTakeScreenshotEnabled()){
+                return "";
+            }else{
             ThreadLocal<String> base64 = new ThreadLocal<String>();
             TakesScreenshot screenshot = (TakesScreenshot) driver;
-            String snapshotFile = "data:image/png;base64,"
-                    + screenshot.getScreenshotAs(OutputType.BASE64);
-            base64.set(snapshotFile);
-            return base64.get();
-        } catch (Exception e) {
+            snapshotFile = screenshot.getScreenshotAs(OutputType.BASE64);
+            snapshotFile = "data:image/png;base64,"+snapshotFile;
+            return snapshotFile;
+        }} catch (Exception e) {
             ExtentTestManager.getTest().log(LogStatus.FAIL, "Unable to capture screenshot</b></p>");
         }
         return null;
     }
+
+
+//    public static String captureSnapshot(String testName, WebDriver driver) throws Exception {
+//        try {
+//            ThreadLocal<String> base64 = new ThreadLocal<String>();
+//            TakesScreenshot screenshot = (TakesScreenshot) driver;
+//            String snapshotFile = "data:image/png;base64,"
+//                    + screenshot.getScreenshotAs(OutputType.BASE64);
+//            base64.set(snapshotFile);
+//            return base64.get();
+//        } catch (Exception e) {
+//            ExtentTestManager.getTest().log(LogStatus.FAIL, "Unable to capture screenshot</b></p>");
+//        }
+//        return null;
+//    }
     public String getAttributeForElement(String elementRef, String attributeType) {
         try {
             ElementFindBy findObj = new ElementFindBy(driver);
@@ -141,15 +181,6 @@ public class BaseActions {
 
         }
     }
-
-    public void launchUrl(String url) {
-        try {
-            driver.get(url);
-        } catch (Exception e) {
-
-        }
-    }
-
     public void refreshPage(String url) {
         try {
             driver.navigate().refresh();
@@ -272,15 +303,7 @@ public class BaseActions {
         }
     }
 
-    public boolean isDisplayed(String elementRef) {
-        try {
-            ElementFindBy findObj = new ElementFindBy(driver);
-            WebElement elementBy = findObj.findElementBy(elementRef);
-            return elementBy.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
+
 
 
 }
